@@ -139,12 +139,19 @@ export default function DashboardContent({children}) {
           </Toolbar>
           <Divider />
           <List component="nav">
-          <ListItemButton>
-            <ListItemIcon>
-                <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Taxonomy" />
-            </ListItemButton>
+          {/* <ListItemButton> */}
+            <Link className="d-flex align-center underline-p" href="/taxonomy">
+              <ListItemIcon>
+                  <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Taxonomy" />
+            </Link>
+            <Link className="d-flex align-center underline-p" href="/content">
+              <ListItemIcon>
+                  <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Content" />
+            </Link>
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

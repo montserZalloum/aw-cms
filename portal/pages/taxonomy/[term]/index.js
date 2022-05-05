@@ -2,7 +2,7 @@ import React from "react";
 import { server } from "../../../config/index.js";
 import { useRouter } from "next/router";
 import Card from "../../../components/base/Card";
-import BasicTable from "../../../components/base/Table";
+import TermsList from "../../../components/term/list";
 
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
@@ -20,7 +20,8 @@ function Home({ terms }) {
           ADD TAXONOMY
         </Button>
       </div>
-      {terms && <BasicTable data={terms} rows={rows} />}
+      {/* {terms && <TermsList data={terms} rows={rows} /> || <h1 className="center">No content</h1>} */}
+      {<TermsList data={terms} rows={rows} /> || <h1 className="center">No content</h1>}
     </Card>
   );
 }
@@ -31,23 +32,23 @@ export async function getStaticPaths() {
   const paths = data.map(taxonomy => {
     return {
         params: {
-            term: taxonomy.name,
-            taxonomyId: taxonomy._id
+            taxonomyId: taxonomy._id,
+            term: taxonomy.name
         }
     }
   });
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
 export async function getStaticProps(context) {
-  const response = await fetch(`${server}/taxonomy/${context.params.taxonomyId}`);
+  const response = await fetch(`${server}/taxonomy/${context.params.term}/term`);
   const data = await response.json();
   return {
     props: {
-      taxonomies: data,
+      terms: data,
     },
     revalidate: 60,
   };

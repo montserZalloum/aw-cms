@@ -17,7 +17,7 @@ function Home({taxonomies}) {
             ADD TAXONOMY
           </Button>
         </div>
-        {taxonomies && <BasicTable data={taxonomies} rows={rows} />}
+        {taxonomies && <BasicTable data={taxonomies} rows={rows} /> || <h1 className="center">No content</h1>}
       </Card>
   );
 }

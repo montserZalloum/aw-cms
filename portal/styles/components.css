@@ -1,0 +1,63 @@
+.MuiFab-sizeSmall {
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
+}
+.MuiFab-sizeSmall .MuiSvgIcon-root{
+    font-size: 16px;
+}
+.avatar-button {
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid #e1e1e1;
+    border-radius: 20px;
+    padding: 1px;
+}
+.fixed-menu-bar {
+    z-index: 10;
+}
+.fixed-menu-bar .MuiBottomNavigation-root {
+    background: #f4f4f4;
+}
+.info-title-box .info-tab:not(.active) {
+    display: none;
+}
+.fixed-menu-bar-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+}
+.upload-img-box {
+    min-width: 75px;
+}
+.upload-img-alt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 23px;
+    border-radius: 20px;
+    border: 1px solid #e1e1e1;
+    transition: .3s;
+    visibility: hidden;
+    opacity: 0;
+}
+.upload-img-box.active .upload-img-alt {
+    opacity: 1;
+    visibility: visible;
+    top: -24px;
+}
+.upload-img-box .remove-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor:pointer;
+}
+.tags-group > * {
+    width: 100%;
+}
+.accordion-group .MuiButtonBase-root {
+    background: #e6e6e6;
+}

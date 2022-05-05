@@ -26,6 +26,12 @@ export class TermController {
   async getTerm(@Param("id") id: string) {
     return await this.termService.getTerm(id);
   }
+  
+  // @Get(":name")
+  // async getTermByName(@Param("name") name: string) {
+  //   console.log('askldaksdklaskld')
+  //   return await this.termService.getTermByName(name);
+  // }
 
   @Patch(":id")
   async updateTerm(@Param("id") id: string, @Body() body: TermObj) {    

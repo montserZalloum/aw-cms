@@ -6,15 +6,16 @@ export class TermDto {
     description: string;
     alias: string;
     taxonomyId:string;
-    createdDate: string;
+    parent:string;
 }
 
 
 export const TermSchema = new mongoose.Schema({
     name: {type: String,required: true},
     description: {type: String,required: true},
-    alias: {type: String,required: true},
     taxonomyId: {type: String,required: true},
+    alias: {type: String,required: false},
+    parent: {type: String,default: null},
 },{ timestamps: { createdAt: 'created_at',updatedAt: 'updated_at' } });
 
 export class TermObj {
@@ -22,7 +23,7 @@ export class TermObj {
     description: string;
     alias: string;
     taxonomyId:string;
-    createdDate: string;
+    parent:string;
 }
 
 export interface Term extends mongoose.Document {
@@ -31,5 +32,5 @@ export interface Term extends mongoose.Document {
     description: string;
     alias: string;
     taxonomyId:string;
-    createdDate: string;
+    parent:string;
 }

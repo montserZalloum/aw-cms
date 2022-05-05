@@ -39,6 +39,9 @@ body {
 .w-80 {
     width: 80%;
 }
+.w-75 {
+    width: 75%;
+}
 .w-70 {
     width: 70%;
 }
@@ -71,6 +74,12 @@ body {
 }
 .w-25 {
     width: 25%;
+}
+.w-10 {
+    width: 10%;
+}
+.w-5 {
+    width: 5%;
 }
 .h-full {
     height: 100vh;
@@ -529,6 +538,9 @@ a:hover {
 .underline {
     text-decoration: underline;
 }
+.underline-p {
+    text-decoration: none!important;
+}
 .p-side-30 {
     padding-left: 30px;
     padding-right: 30px;
@@ -686,7 +698,9 @@ h1 {
 .left {
     text-align: left;
 }
-
+.bb {
+    border-bottom:1px solid rgba(0, 0, 0, 0.12);
+}
 .gap-10 {
     gap: 10px;
 }
@@ -699,6 +713,14 @@ h1 {
 .two-side {
     display: flex;
     column-gap: 23px;
+}
+.swipe-box {
+    width: 100%;
+    overflow-x: scroll!important;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
 }
 .right-side-col {
     width: 67.3333333333%;

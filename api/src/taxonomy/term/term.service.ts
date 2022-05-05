@@ -17,7 +17,6 @@ export class TermService {
     
     if (taxonomy) {
       payload.taxonomyId = taxonomyId
-      payload.createdDate = new Date()
       const newTerm = new this.termModel(payload);
       const result = await newTerm.save();
       return result;
@@ -37,6 +36,11 @@ export class TermService {
     const term = await this.findProduct(id);
     return term;
   }
+  
+  async getTermByName(name: string) {
+    const term = await this.termModel.find({name: name}).exec()
+    return term;
+  }
 
   async updateTerm(id, payload) {
     const updatedTerm = await this.findProduct(id);
@@ -44,7 +48,9 @@ export class TermService {
     if (payload.name) updatedTerm.name = payload.name;
     if (payload.description) updatedTerm.description = payload.description;
     if (payload.alias) updatedTerm.alias = payload.alias;
-    updatedTerm.save();
+    if (payload.parent) updatedTerm.parent = payload.parent;
+    if (payload.taxonomyId) updatedTerm.taxonomyId = payload.taxonomyId;
+    const  resp = await updatedTerm.save();
   }
 
   async removeTerm(id) {
