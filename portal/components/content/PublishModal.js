@@ -8,12 +8,12 @@ import Button from "@mui/material/Button";
 import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
 function PublishModal(props) {
-  const [checked, setChecked] = useState(true);
-  const handleChange2 = (event) => {
-    setChecked(event.target.checked);
-    console.log(checked)
-  };
+  const [isPublish, setIsPublish] = useState(props.data.isPublish);
+  const [isSticky, setIsSticky] = useState(props.data.isSticky);
+  const [createdAt,setCreatedAt] = useState(props.data.createdAt);
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -21,8 +21,20 @@ function PublishModal(props) {
     ) {
       return;
     }
-    props.setShow(open);
+    if (!open) {
+      setIsPublish(props.data.isPublish);
+      setIsSticky(props.data.isSticky);
+      setCreatedAt(props.data.createdAt);
+    }
+      props.setShow(open);
   };
+
+  function saveChanges () {
+    props.setIsPublish(isPublish);
+    props.setIsSticky(isSticky);
+    props.setCreatedAt(createdAt);
+    props.setShow(false);
+  }
 
   return (
     <div className="publish-modal-box">
@@ -51,7 +63,7 @@ function PublishModal(props) {
                 >
                   Publishing Options
                 </Typography>
-                <Button autoFocus color="inherit" onClick={toggleDrawer(false)}>
+                <Button autoFocus color="inherit" onClick={saveChanges}>
                   save
                 </Button>
               </Toolbar>
@@ -59,11 +71,11 @@ function PublishModal(props) {
             <div className="pt-15 pb-15 p-side-15">
               <div className="checkbox-group">
                 <FormControlLabel
-                  label="Child 1"
+                  label="Publish"
                   control={
                     <Checkbox
-                      checked={checked}
-                      onChange={handleChange2}
+                      checked={isPublish}
+                      onChange={() => {setIsPublish(!isPublish)}}
                       color="warning"
                     />
                   }
@@ -71,14 +83,23 @@ function PublishModal(props) {
               </div>
               <div className="checkbox-group">
                 <FormControlLabel
-                  label="Child 1"
+                  label="Sticky"
                   control={
                     <Checkbox
-                      checked={checked}
-                      onChange={handleChange2}
+                      checked={isSticky}
+                      onChange={() => {setIsSticky(!isSticky)}}
                       color="warning"
                     />
                   }
+                />
+              </div>
+              <div className="form-group w-100 mt-15">
+                <TextField
+                  label="Created Date"
+                  className="w-100"
+                  name="name"
+                  onChange={(e)=>{setCreatedAt(e.target.value)}}
+                  value={createdAt}
                 />
               </div>
             </div>

@@ -7,21 +7,48 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import Button from "@mui/material/Button";
 import React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { styled } from '@mui/material/styles';
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { useTheme } from "@mui/material/styles";
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 import { forwardRef, useState } from "react";
-function DepartmentsModal(props) {
-  const [expanded, setExpanded] = React.useState('panel1');
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && <div>{children}</div>}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
+function DepartmentsModal(props) {
+  const [value, setValue] = React.useState(0);
+  const theme = useTheme();
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
   return (
     <Dialog
@@ -52,58 +79,33 @@ function DepartmentsModal(props) {
           </Button>
         </Toolbar>
       </AppBar>
-      <div className="d-flex w-100 p-side-15 mt-20 accordion-group">
-        <div>
-          <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Accordion 1</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Accordion 2</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Accordion 2</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        </div>
+      <div className="w-100 p-side-15 mt-20">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="inherit"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+          centered
+        >
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+        </Tabs>
+        
       </div>
+      <div className="pt-30 p-side-15">
+      <TabPanel value={value} index={0} dir={theme.direction}>
+          Item One
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          Item Three
+        </TabPanel>
+        </div>
     </Dialog>
   );
 }

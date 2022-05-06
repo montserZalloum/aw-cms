@@ -16,22 +16,47 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 function DomainsBox(props) {
-  const [checked, setChecked] = useState(true);
   const [open, setOpen] = useState(false);
-
+  const [localList, setLocalList] = useState(props.data.map(object => ({ ...object })));
   const handleClickOpen = () => {
     setOpen(true);
   };
+  
 
   const handleClose = () => {
+    
+    setLocalList(props.data.map(object => ({ ...object })))
     setOpen(false);
   };
-  const handleChange2 = (event) => {
-    setChecked(event.target.checked);
-    console.log(checked)
+  const handleChange = (id) => {
+    const targetIndex = localList.findIndex(item => item.id === id);
+    const newList = [...localList];
+    newList[targetIndex].isChecked = !newList[targetIndex].isChecked;
+    setLocalList(newList);
   };
+  const saveChanges = () => {
+    props.setData([localList.map(object => ({ ...object }))]);
+    setOpen(false);
+  }
+
+  const drawList = localList.map((domain) => {
+    return (
+      <div className="checkbox-group" key={domain.id} >
+        <FormControlLabel
+          label={domain.name}
+          control={
+            <Checkbox
+              checked={domain.isChecked}
+              onChange={()=>{handleChange(domain.id)}}
+              color="warning"
+            />
+          }
+        />
+      </div>
+    );
+  });
   return (
     <div className="domains-box">
       <Fab onClick={handleClickOpen} className="bg-white" variant="extended">
@@ -58,18 +83,13 @@ function DomainsBox(props) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Select Country
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button autoFocus color="inherit" onClick={saveChanges}>
               save
             </Button>
           </Toolbar>
         </AppBar>
         <div className="d-flex row-3 p-side-15 mt-20">
-          <div className="checkbox-group">
-            <FormControlLabel
-              label="Child 1"
-              control={<Checkbox checked={checked} onChange={handleChange2} color="warning" />}
-            />
-          </div>
+          {drawList}
         </div>
       </Dialog>
     </div>

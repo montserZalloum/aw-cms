@@ -565,6 +565,10 @@ a:hover {
     padding-left: 10px;
     padding-right: 10px;
 }
+.m-side-15 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
 .trans {
     transition: 0.3s;
 }

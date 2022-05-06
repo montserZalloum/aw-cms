@@ -7,17 +7,18 @@ import TermsList from "../../../components/term/list";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 function Home({ terms }) {
+  
   const router = useRouter();
   const rows = ["name", "description", "created_at"];
   return (
     <Card>
       <div className="mb-30">
         <Button
-          onClick={() => router.push("/taxonomy/add")}
+          onClick={() => router.push(`/taxonomy/${router.query.term}/add`)}
           variant="contained"
           endIcon={<AddIcon />}
         >
-          ADD TAXONOMY
+          ADD TERM
         </Button>
       </div>
       {/* {terms && <TermsList data={terms} rows={rows} /> || <h1 className="center">No content</h1>} */}

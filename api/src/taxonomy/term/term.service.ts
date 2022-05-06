@@ -32,6 +32,14 @@ export class TermService {
     }
   }
 
+  async getTermTags(taxonomyId,body) {
+    const taxonomy = await this.taxonomyService.getTaxonomy(taxonomyId);
+    if (taxonomy) {
+      const term = await this.termModel.find({taxonomyId: taxonomyId,name: {$regex : body.query} }).exec();
+      return term as Term[];
+    }
+  }
+
   async getTerm(id: string) {
     const term = await this.findProduct(id);
     return term;

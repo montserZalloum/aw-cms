@@ -93,7 +93,7 @@ function AuthorBox(props) {
                   variant="h6"
                   component="div"
                 >
-                  Select Country
+                  Select Author
                 </Typography>
                 <Button autoFocus color="inherit" onClick={()=>setAuthorModal(false)}>
                   save

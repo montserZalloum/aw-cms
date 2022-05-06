@@ -7,11 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
-import React from "react";
-function VideoModal(props) {
+import React, { useState } from "react";
 
+function VideoModal(props) {
+  const [localVideoLink,setLocalVideoLink] = useState(props.data);
   function handleChange(e) {
-    console.log(e.target.value);
+    setLocalVideoLink(e.target.value);
   }
 
   const toggleDrawer = (open) => (event) => {
@@ -21,9 +22,16 @@ function VideoModal(props) {
     ) {
       return;
     }
-
+    if (!props.open) {
+      setLocalVideoLink(props.data);
+    }
     props.setShow(open);
   };
+
+  function saveChanges(){
+    props.setData(localVideoLink)
+    props.setShow(false);
+  }
 
   return (
     <div className="video-box">
@@ -52,7 +60,7 @@ function VideoModal(props) {
                 >
                   Add Video From Youtube
                 </Typography>
-                <Button autoFocus color="inherit" onClick={toggleDrawer(false)}>
+                <Button autoFocus color="inherit" onClick={saveChanges}>
                   save
                 </Button>
               </Toolbar>
@@ -62,11 +70,11 @@ function VideoModal(props) {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label="Link from Youtube"
                   className="w-100"
                   name="name"
                   onChange={handleChange}
-                  // value={formData.name}
+                  value={localVideoLink}
                 />
               </div>
             </div>
