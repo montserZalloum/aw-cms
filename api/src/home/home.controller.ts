@@ -12,6 +12,7 @@ export class HomeController {
     return {msg: 'logged in!'};
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Get("")
   getHello(@Request() req):string {
     return req.user;
