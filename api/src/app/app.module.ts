@@ -4,9 +4,11 @@ import { HomeModule } from "../home/home.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TermModule } from "src/taxonomy/term/term.module";
 import { ContentModule } from "src/content/content.module";
+import { AuthModule } from "src/auth/auth.module";
 
 @Module({
   imports: [
+    AuthModule,
     TaxonomyModule,
     TermModule,
     HomeModule,
